@@ -6,6 +6,10 @@ Created on Mar 23, 2014
 '''
 from PyQt4.Qt import endl
 
+input_file="data.txt"
+output_file="output.txt"
+
+
 def initialization(key):
     # making a s-box
     j=0
@@ -19,11 +23,12 @@ def initialization(key):
         j=(j+S[i]+ord(key[i % len(key)])) % 256
         S[i],S[j]=S[j],S[i] # swaping element
 
+# initialize i & j for opeartion
+i_itr=0
+j_itr=0
 
 # xor each byte with the choosen S-box element
 # d for byte of data, i & j is static
-i_itr=0
-j_itr=0
 def operation(d):
     global i_itr
     global j_itr
@@ -37,17 +42,17 @@ def operation(d):
 
 # encrypt all the data
 def byte_encrypt(path):
-    # initialize i & j for opeartion
+    global output_file
     # opening target file
-    file_target=open("output.txt","wb")    
+    file_target=open(output_file,"wb")    
     #reading file byte by byte 
     file=open(path,"rb")
     byte=file.read(1)   # read each byte of file
     byte=unicode(byte)
     while byte!="":
         byte=operation(byte) # encrypt each byte of data
-#        print byte
-        file_target.write(format(byte,"02x"))
+  #      file_target.write(format(byte,"02x")) # save as hexa
+        file_target.write(chr(byte))
         byte=file.read(1)
     
 
@@ -59,6 +64,4 @@ def encryption(path,key):
 
 file_key=open("key.txt","r")
 keys=file_key.read(300)
-#print list(keys)
-#print list(keys)
-encryption("data.txt",list(keys))
+encryption(input_file,list(keys))
