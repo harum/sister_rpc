@@ -52,8 +52,8 @@ def byte_encrypt(path):
     # encrypt each byte
     while byte!="": 
         byte=operation(byte) # encrypt each byte of data
-        # file_target.write(format(byte,"02x")) # if we want to save as hexadecimal 
-        file_target.write(chr(byte)) # save as binary
+        file_target.write(format(byte,"02x")) # if we want to save as hexadecimal 
+       # file_target.write(chr(byte)) # save as binary
         
         byte=file.read(1) 
     

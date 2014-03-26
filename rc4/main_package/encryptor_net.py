@@ -47,7 +47,7 @@ def byte_encrypt(data):
     out=""
     for c in data:
         byte=operation(c)
-        out+=byte
+        out+=chr(byte)
     return out
 
 # Main function to encrypt data, using path input, and key (list)
