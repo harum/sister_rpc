@@ -6,8 +6,8 @@ Created on Mar 23, 2014
 '''
 from PyQt4.Qt import endl
 
-input_file="output.txt"
-output_file="data.txt"
+input_file="data.txt"
+output_file="output.txt"
 
 
 # making a s-box 
@@ -41,29 +41,20 @@ def operation(d):
     return ord(d) ^ pr  # in python ^ is bitwise XOR operation
 
 # encrypt all the data
-def byte_encrypt(path):
+def byte_encrypt(data):
     global output_file
-    # opening target file
-    file_target=open(output_file,"wb")    
-    file=open(path,"rb")  #reading file byte by byte 
-    byte=file.read(1)   # read each byte of file
-    byte=unicode(byte)  # convert to unicode character
-
-    # encrypt each byte
-    while byte!="": 
-        byte=operation(byte) # encrypt each byte of data
-  #      file_target.write(format(byte,"02x")) # if we want to save as hexadecimal 
-        file_target.write(chr(byte)) # save as binary
-        byte=file.read(1) 
     
+    out=""
+    for c in data:
+        byte=operation(c)
+        out+=byte
+    return out
 
 # Main function to encrypt data, using path input, and key (list)
-def encryption(path,key):
-    initialization(key)
-    byte_encrypt(path)
+def encryption(data):
+    file_key=open("key.txt","r")
+    keys=file_key.read(300)
+    initialization(list(keys))
+    return byte_encrypt(data)
+    
 
-
-# calling main function
-file_key=open("key.txt","r")
-keys=file_key.read(300)
-encryption(input_file,list(keys))

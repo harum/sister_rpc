@@ -10,8 +10,8 @@ input_file="data.txt"
 output_file="output.txt"
 
 
+# making a s-box 
 def initialization(key):
-    # making a s-box
     j=0
     global S
     S=[]
@@ -23,7 +23,7 @@ def initialization(key):
         j=(j+S[i]+ord(key[i % len(key)])) % 256
         S[i],S[j]=S[j],S[i] # swaping element
 
-# initialize i & j for opeartion
+# initialize i & j for opeartion (global variable)
 i_itr=0
 j_itr=0
 
@@ -45,23 +45,26 @@ def byte_encrypt(path):
     global output_file
     # opening target file
     file_target=open(output_file,"wb")    
-    #reading file byte by byte 
-    file=open(path,"rb")
+    file=open(path,"rb")  #reading file byte by byte 
     byte=file.read(1)   # read each byte of file
-    byte=unicode(byte)
-    while byte!="":
+    byte=unicode(byte)  # convert to unicode character
+
+    # encrypt each byte
+    while byte!="": 
         byte=operation(byte) # encrypt each byte of data
-  #      file_target.write(format(byte,"02x")) # save as hexa
-        file_target.write(chr(byte))
-        byte=file.read(1)
+        # file_target.write(format(byte,"02x")) # if we want to save as hexadecimal 
+        file_target.write(chr(byte)) # save as binary
+        
+        byte=file.read(1) 
     
 
-# Main function
+# Main function to encrypt data, using path input, and key (list)
 def encryption(path,key):
     initialization(key)
     byte_encrypt(path)
 
 
+# calling main function
 file_key=open("key.txt","r")
 keys=file_key.read(300)
 encryption(input_file,list(keys))
