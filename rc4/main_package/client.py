@@ -20,6 +20,7 @@ print "## Connection successfull"
 
 try:
     while True:
+        print "## Handsaking ....."
         print "## Waiting message from server"
         # Get data from network
         data_in=clientsocket.recv(4096)

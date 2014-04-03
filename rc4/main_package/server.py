@@ -31,6 +31,7 @@ s.listen(5)
 def clientthread(conn):
     
     while True:
+        print "## Handsaking ....."
         data_in=raw_input("## Enter Message :")
         test=encryptor_net.encryption(data_in)
         conn.send(test)
