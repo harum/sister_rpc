@@ -12,7 +12,7 @@ list_provinsi=['aceh','sumatera utara',"sumatera barat","bengkulu","jambi"]
 
 
 
-
+#test
 while True:
     print "daftar provinsi"
     for i in range(len(list_provinsi)):
